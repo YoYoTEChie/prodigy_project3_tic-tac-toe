@@ -1,0 +1,82 @@
+<script>
+ const board = document.getElementById('board');
+const cells = document.querySelectorAll('.cell');
+const restartBtn = document.getElementById('restartBtn');
+const message = document.getElementById('message');
+const gameModeSelect = document.getElementById('gameMode');
+
+let currentPlayer = 'X';
+let gameState = Array(9).fill('');
+let isSinglePlayer = false;
+
+const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
+
+gameModeSelect.addEventListener('change', () => {
+    isSinglePlayer = gameModeSelect.value === '1p';
+    restartGame();
+});
+
+cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+restartBtn.addEventListener('click', restartGame);
+
+function handleCellClick(event) {
+    const cell = event.target;
+    const index = cell.getAttribute('data-index');
+
+    if (gameState[index] === '' && !checkWin()) {
+        gameState[index] = currentPlayer;
+        cell.textContent = currentPlayer;
+        if (checkWin()) {
+            message.textContent = `${currentPlayer} wins!`;
+            return;
+        } else if (!gameState.includes('')) {
+            message.textContent = 'It\'s a draw!';
+            return;
+        }
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+
+        if (isSinglePlayer && currentPlayer === 'O') {
+            setTimeout(makeAIMove, 500); // Add a small delay for better user experience
+        }
+    }
+}
+
+function makeAIMove() {
+    const emptyCells = gameState.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
+    const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+
+    gameState[randomIndex] = currentPlayer;
+    document.querySelector(`.cell[data-index="${randomIndex}"]`).textContent = currentPlayer;
+
+    if (checkWin()) {
+        message.textContent = `${currentPlayer} wins!`;
+    } else if (!gameState.includes('')) {
+        message.textContent = 'It\'s a draw!';
+    } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    }
+}
+
+function checkWin() {
+    return winningConditions.some(condition => {
+        return condition.every(index => gameState[index] === currentPlayer);
+    });
+}
+
+function restartGame() {
+    currentPlayer = 'X';
+    gameState = Array(9).fill('');
+    cells.forEach(cell => cell.textContent = '');
+    message.textContent = '';
+}
+
+</script>
