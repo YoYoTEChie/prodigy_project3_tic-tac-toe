@@ -1,0 +1,68 @@
+<style>
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    background-image: url("https://media.istockphoto.com/id/1489370084/vector/xoxo-colorful-seamless-pattern.jpg?s=1024x1024&w=is&k=20&c=tS8Vh-FuoGEulncuF96Gu0OpMawK3SylsqKbepdudL4=");
+}
+.container {
+    text-align: center;
+    background-color: #53a4f5;
+    padding: 20px;
+    border-radius: 10px;
+    border:3px solid red;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin: 20px 0;
+}
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+    font-size: 2em;
+    cursor: pointer;
+}
+#restartBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    border:3px solid black;
+    transition: background-color 0.3s;
+}
+#restartBtn:hover {
+    background-color: #0056b3;
+}
+#message {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+#gameMode{
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    border:3px solid black;
+    transition: background-color 0.3s;
+}
+</style>
